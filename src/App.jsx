@@ -39,9 +39,7 @@ function App() {
     let path = `/${topic.topicName.toLowerCase().replace(/\s+/g, '_')}`;
     path = path.replace(/search_&_sort/g, 'search_sort').replace(/stacks_&_queue/g, 'stacks_queue');
     return (
-      <BrowserRouter basename="/subdirectory">
-        <Routes>
-        <Route
+      <Route
         key={topic.topicName}
         path={path}
         element={
@@ -52,8 +50,6 @@ function App() {
           />
         }
       />
-        </Routes>
-      </BrowserRouter>
     );
   });
 
