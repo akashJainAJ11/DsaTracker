@@ -1,0 +1,9 @@
+diff --git a/node_modules/localbase/localbase/api/actions/add.js b/node_modules/localbase/localbase/api/actions/add.js
+
+import UUID from 'ordered-uuid'
+
+
+b/node_modules/localbase/localbase/api/actions/add.js
+import success from '../../api-utils/success'
+import error from '../../api-utils/error'
+import showUserErrors from '../../api-utils/showUserErrors'
