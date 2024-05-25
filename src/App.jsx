@@ -54,7 +54,7 @@ function App() {
   });
 
   return (
-    <BrowserRouter basename="/subdirectory">
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<TopicCard questionData={questionData} />} />
         {topicRoutes}
