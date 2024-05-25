@@ -1,11 +1,17 @@
 import React from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Footer from './Footer';
 
 const Topic = ({ data, updateData, topicPosition }) => {
   const handleToggleDone = (questionIndex) => {
     const updatedQuestions = data.questions.map((question, index) => {
       if (index === questionIndex) {
-        return { ...question, Done: !question.Done };
+        const newDoneStatus = !question.Done;
+        toast(newDoneStatus ? 'Marked as Done' : 'Marked as Not Done', {
+          type: newDoneStatus ? 'success' : 'info',
+        });
+        return { ...question, Done: newDoneStatus };
       }
       return question;
     });
@@ -23,7 +29,11 @@ const Topic = ({ data, updateData, topicPosition }) => {
   const handleToggleImportant = (questionIndex) => {
     const updatedQuestions = data.questions.map((question, index) => {
       if (index === questionIndex) {
-        return { ...question, Important: !question.Important };
+        const newImportantStatus = !question.Important;
+        toast(newImportantStatus ? 'Marked as Important' : 'Unmarked as Important', {
+          type: newImportantStatus ? 'warning' : 'info',
+        });
+        return { ...question, Important: newImportantStatus };
       }
       return question;
     });
@@ -63,16 +73,16 @@ const Topic = ({ data, updateData, topicPosition }) => {
                 </div>
               </div>
               <div className="flex items-center">
-                <button 
-                  onClick={() => handleToggleDone(index)} 
+                <button
+                  onClick={() => handleToggleDone(index)}
                   className={`ml-4 px-4 py-2 rounded ${
                     question.Done ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
                   } hover:opacity-80`}
                 >
                   {question.Done ? 'Done' : 'Not Done'}
                 </button>
-                <button 
-                  onClick={() => handleToggleImportant(index)} 
+                <button
+                  onClick={() => handleToggleImportant(index)}
                   className={`ml-4 p-2 rounded-full ${
                     question.Important ? 'bg-yellow-500 text-white' : 'bg-gray-300 text-gray-700'
                   } hover:opacity-80`}
@@ -85,6 +95,7 @@ const Topic = ({ data, updateData, topicPosition }) => {
         </ul>
       </div>
       <Footer />
+      <ToastContainer />
     </div>
   );
 };
