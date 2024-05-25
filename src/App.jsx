@@ -9,13 +9,17 @@ function App() {
     const savedData = localStorage.getItem('questionData');
     return savedData ? JSON.parse(savedData) : [];
   });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (questionData.length === 0) {
       getData((data) => {
         setQuestionData(data);
         localStorage.setItem('questionData', JSON.stringify(data));
+        setLoading(false);
       });
+    } else {
+      setLoading(false);
     }
   }, [questionData]);
 
@@ -48,7 +52,6 @@ function App() {
       />
     );
   });
-  
 
   return (
     <BrowserRouter>
@@ -56,6 +59,12 @@ function App() {
         <Route path="/" element={<TopicCard questionData={questionData} />} />
         {topicRoutes}
       </Routes>
+      {loading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-100 bg-opacity-75">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+          <p className="text-xl font-semibold text-blue-500 mt-4">Loading...</p>
+        </div>
+      )}
     </BrowserRouter>
   );
 }
