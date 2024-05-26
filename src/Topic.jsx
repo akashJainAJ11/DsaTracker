@@ -42,6 +42,16 @@ const Topic = ({ data, updateData, topicPosition }) => {
     updateData(updatedTopic, topicPosition);
   };
 
+  const handlePickRandom = () => {
+    const notDoneQuestions = data.questions.filter((question) => !question.Done);
+    if (notDoneQuestions.length === 0) {
+      toast('All problems are marked as done!', { type: 'info' });
+      return;
+    }
+    const randomQuestion = notDoneQuestions[Math.floor(Math.random() * notDoneQuestions.length)];
+    window.open(randomQuestion.URL, '_blank');
+  };
+
   const completedCount = data.questions.filter((question) => question.Done).length;
   const totalCount = data.questions.length;
   const progress = Math.round((completedCount / totalCount) * 100);
@@ -58,6 +68,12 @@ const Topic = ({ data, updateData, topicPosition }) => {
             <div className="bg-blue-500 h-4 rounded-full" style={{ width: `${progress}%` }}></div>
           </div>
         </div>
+        <button
+          onClick={handlePickRandom}
+          className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+        >
+          Pick a Random Not Done Problem
+        </button>
         <ul className="space-y-4">
           {data.questions.map((question, index) => (
             <li key={index} className="p-4 bg-gray-100 rounded-lg shadow-sm flex justify-between items-center">
